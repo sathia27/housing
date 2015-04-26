@@ -1,6 +1,5 @@
 class City
-  include MongoMapper::Document
-
-  key :name, String
+  include Mongoid::Document
+  field :name, type: String
 
 end

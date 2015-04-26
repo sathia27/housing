@@ -1,0 +1,6 @@
+development:
+  sessions:
+    default:
+      database: place_to_live_development
+      hosts:
+        - 127.0.0.1:27017

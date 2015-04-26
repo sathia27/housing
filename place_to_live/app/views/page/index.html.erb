@@ -1,0 +1,39 @@
+<form action="/" style="margin-top:30px">
+ <div class="form-group">
+   <input type="text" placeholder="Which locality you stay now?" name="cl"  class="form-control" />
+ </div>
+ <div class="form-group">
+   <input type="text" placeholder="Which city you are moving" name="rl" class="form-control" />
+ </div>
+ <div class="form-group">
+   <input type="submit" value="suggest" class="btn"/>
+ </form>
+<% if(@weightage) %>
+  <div style="background:#fff;padding:5px;margin-top:10px;">
+    <h4><%= params[:cl] %></h4>
+    <%= raw @weightage %>
+</div>
+<% end %>
+<% if(@new_weightage) %>
+<div style="background:#fff;padding:5px;margin-top:10px;">
+  <h4>Suggested locality in <%= @suggestion.name %>, <%= params[:rl] %></h4>
+  <%= raw @new_weightage %>
+  <% if(@suggestion.sqft_cost.present? and @suggestion.sqft_cost > 0) %>
+    <p>Price: <b><%= @suggestion.sqft_cost  %>/sq.ft</b></p>
+  <% end %>
+  <% if(@suggestion.housing_uid.present?) %>
+    <%= link_to "Check Houses here", @suggestion.housing_uid, {:target => "_blank"} %>
+  <% end %>
+<br>
+<% if(@suggestion) %>
+  <%=link_to "crime in this area", "https://twitter.com/search?f=realtime&q=%27"+@suggestion.name+"%20crime%27&src=typd", {:target => "_blank", :style => "color:red"} %>
+<% end %>
+</div>
+<% end %>
+
+<% if(@near_by_places) %>
+  <div style="background:#fff;padding:5px;margin-top:10px;">
+    <h4>Places near <%= @suggestion.name %>, <%= params[:rl] %></h4>
+    <%= raw @near_by_places %>
+  </div>
+<% end %>
